@@ -4,23 +4,32 @@
   "version": "1.10.2",
   "author": "Aman Mittal <amandeepmittal@live.com>",
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^13.4.0",
     "bulma": "^0.8.2",
     "gatsby": "^2.20.18",
     "gatsby-image": "^2.3.2",
+    "gatsby-plugin-anchor-links": "^1.1.1",
     "gatsby-plugin-google-analytics": "^2.2.2",
     "gatsby-plugin-manifest": "^2.3.3",
     "gatsby-plugin-offline": "^3.1.2",
+    "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
     "gatsby-plugin-react-helmet": "^3.2.2",
     "gatsby-plugin-sass": "^2.2.1",
     "gatsby-plugin-sharp": "^2.5.4",
     "gatsby-plugin-sitemap": "^2.3.1",
+    "gatsby-source-contentful": "^2.3.1",
     "gatsby-source-filesystem": "^2.2.2",
     "gatsby-transformer-sharp": "^2.4.4",
+    "gsap": "^3.2.6",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-gsap": "^2.0.5",
     "react-helmet": "^5.2.1",
-    "react-icons": "^3.9.0"
+    "react-icons": "^3.9.0",
+    "react-scrollmagic": "^2.2.0",
+    "react-slick": "^0.25.2",
+    "slick-carousel": "^1.8.1"
   },
   "keywords": [
     "gatsby",
@@ -32,7 +41,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -p 8080",
     "start": "npm run develop",
     "format": "prettier --write \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"

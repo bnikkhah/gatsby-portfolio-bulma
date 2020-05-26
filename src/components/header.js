@@ -1,51 +1,96 @@
 import React from 'react';
-import { FaGithub } from 'react-icons/fa';
+// import { FaGithub } from 'react-icons/fa';
+
+import Navbar from './navbar'
+
+import { AnchorLink } from 'gatsby-plugin-anchor-links'
 
 import './style.scss';
 
-import gatsbyLogo from '../images/gatsby-icon.png';
-import bulmaLogo from '../images/bulma-logo.png';
-import Navbar from './navbar';
+import { Tween, SplitLetters } from 'react-gsap'
 
-const Header = ({ siteTitle }) => (
-	<section className="hero gradientBg is-fullheight-with-navbar">
-		<Navbar />
-		<div className="hero-body">
-			<div className="container center">
-				<article className="media">
-					<figure className="is-left">
-						<span className="icon is-large ">
-							<img src={gatsbyLogo} alt="gatsby-logo" />
-						</span>
-					</figure>
-					<figure className="is-left">
-						<span className="icon is-large">
-							<img src={bulmaLogo} alt="bulma-logo" />
-						</span>
-					</figure>
-					<div className="media-content">
-						<div className="content">
-							<h1 className="is-uppercase is-size-1 has-text-white">
-								Hello from Bulma + Gatsby
-							</h1>
-							<p className="subtitle has-text-white is-size-3">
-								A Bulma CSS + GatsbyJS Starter Kit{' '}
-								<a
-									className="button is-info is-inverted"
-									href="https://github.com/amandeepmittal/gatsby-bulma-quickstart"
-								>
-									<span className="icon">
-										<FaGithub size="fa-2x" />
-									</span>
-									<span>Download</span>
-								</a>
-							</p>
+import { useStaticQuery, graphql } from 'gatsby'
+
+const Header = () => {
+
+	const data = useStaticQuery(graphql`
+		query AuthorQuery {
+			allContentfulAuthor {
+				edges {
+					node {
+						firstName
+						lastName
+						role
+						id
+					}
+				}
+			},
+			file(relativePath: { eq: "mountains.jpg" }) {
+				childImageSharp {
+					# Specify the image processing specifications right in the query.
+					# Makes it trivial to update as your page's design changes.
+					fixed(width: 1920) {
+						...GatsbyImageSharpFixed
+					}
+				}
+			}
+		}
+	`)
+
+	return (
+		<section className="hero is-dark is-fullheight">
+			<div className="hero-head">
+				<Navbar />
+			</div>
+
+			<div className="hero-body">
+				<div className="container is-fluid">
+					<div className="title-wrapper">
+						<h1 className="title is-uppercase">
+							<Tween from={{ opacity: 0 }} stagger={0.1} duration={2}>
+								{
+									data.allContentfulAuthor.edges.map((edge) => (
+										<SplitLetters
+											wrapper={<span />}
+											key={edge.node.id}
+										>
+											{ edge.node.firstName }
+										</SplitLetters>
+									))
+								}
+								<br />
+								{
+									data.allContentfulAuthor.edges.map((edge) => (
+										<SplitLetters
+											wrapper={<span />}
+											key={edge.node.id}
+										>
+											{ edge.node.lastName }
+										</SplitLetters>
+									))
+								}
+							</Tween>
+						</h1>
+						<Tween from={{ opacity: 0, x: '-200px' }} duration={1.5}>
+							{
+								data.allContentfulAuthor.edges.map((edge) => (
+									<h3 key={edge.node.id} className="subtitle is-uppercase">{ edge.node.role }</h3>
+								))
+							}
+						</Tween>
+						<div className="mobile-padding">
+							<AnchorLink to="/#projects" className="button is-primary" title="View My Projects">
+								View My Projects
+							</AnchorLink>
 						</div>
 					</div>
-				</article>
+				</div>
+				<AnchorLink to="/#about" title="Scroll Down">
+					<div className="icon-scroll"></div>
+				</AnchorLink>
 			</div>
-		</div>
-	</section>
-);
+		</section>
+	)
+}
 
 export default Header;

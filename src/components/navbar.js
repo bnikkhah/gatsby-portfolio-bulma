@@ -1,41 +1,71 @@
 import React from 'react';
-import { FaGithub } from 'react-icons/fa';
+// import { FaGithub } from 'react-icons/fa';
+
+import { AnchorLink } from 'gatsby-plugin-anchor-links'
 
 import './style.scss';
-import gatsbyLogo from '../images/gatsby-icon.png';
-import bulmaLogo from '../images/bulma-logo.png';
+import { Controller, Scene } from 'react-scrollmagic';
+import { Tween } from 'react-gsap'
 
-const Navbar = () => (
-	<div className="hero-head is-hidden-mobile">
-		<nav className="navbar">
-			<div className="container">
-				<div className="navbar-brand">
-					<a
-						className="navbar-item"
-						href="https://github.com/amandeepmittal/gatsby-bulma-quickstart"
-					>
-						<img src={gatsbyLogo} alt="Logo-1" />
-						<img src={bulmaLogo} alt="Logo-2" />
-					</a>
-				</div>
-				<div id="navbarMenuHeroA" className="navbar-menu">
-					<div className="navbar-end">
-						<span className="navbar-item">
-							<a
-								className="button is-danger is-inverted"
-								href="https://github.com/amandeepmittal/gatsby-bulma-quickstart"
-							>
-								<span className="icon">
-									<FaGithub size="fa-2x" />
-								</span>
-								<span>Download</span>
-							</a>
-						</span>
-					</div>
-				</div>
-			</div>
-		</nav>
-	</div>
-);
+const Navbar = () => {
+	// const [open, setOpen] = useState(false)
+
+	const navItems = [
+		{
+			title: 'About',
+			link: '/#about'
+		},
+		{
+			title: 'Skills',
+			link: '/#skills'
+		},
+		{
+			title: 'Projects',
+			link: '/#projects'
+		},
+		{
+			title: 'Contact',
+			link: '/#contact'
+		}
+	]
+
+	return (
+		<Controller>
+			<Scene duration={600} triggerElement="#about">
+				{
+					(progress, event) => (
+						<Tween
+							to={{ y: -100 }}
+							ease="elastic.out"
+							paused
+							playState={
+								(event.type === 'enter' && event.scrollDirection === 'FORWARD') ? 'play' : 
+								(event.type === 'leave' && event.scrollDirection === 'REVERSE') ? 'reverse' : null
+							}
+						>
+							<nav className="menu" id="navbar">
+								<ul className="menu-list">
+									{
+										navItems.map((item) => (
+											<li key={item.title}>
+												<AnchorLink
+													to={item.link}
+													key={item.title}
+													title={item.title}
+												>
+													{item.title}
+												</AnchorLink>
+											</li>
+										))
+									}
+								</ul>
+							</nav>
+						</Tween>
+					)
+				}
+			</Scene>
+		</Controller>
+	)
+}
 
 export default Navbar;

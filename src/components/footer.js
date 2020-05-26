@@ -1,66 +1,70 @@
 import React from 'react'
-import { FaTwitter, FaGithub, FaMedium } from 'react-icons/fa'
-import { StaticQuery, graphql } from 'gatsby'
+// import { FaTwitter, FaGithub, FaMedium } from 'react-icons/fa'
+// import { StaticQuery, graphql } from 'gatsby'
 import './style.scss'
-import Emoji from './emoji'
+import { graphql, useStaticQuery } from 'gatsby'
+import { FaCodepen, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 
-const Footer = () => (
-  <StaticQuery
-    query={graphql`
-      query SocialQuery {
-        site {
-          siteMetadata {
-            gatsby
-            bulma
-            twitter
-            medium
-            github
+const Footer = () => {
+  const data = useStaticQuery(graphql`
+    query SocialQuery {
+      allContentfulSocial {
+        edges {
+          node {
+            title
+            link
+            icon
           }
         }
       }
-    `}
-    render={data => (
-      <footer className='footer center has-background-light'>
-        <div className='content has-text-centered'>
-          <p className='is-size-4'>
-            This website was handcrafted with plenty cups of{' '}
-            <Emoji emoji='☕' />
-          </p>
-          <p className='is-size-4'>
-            By Aman Mittal (@amanhimself) using{' '}
-            <a href={data.site.siteMetadata.gatsby}>Gatsby</a> +{' '}
-            <a href={data.site.siteMetadata.bulma}>Bulma</a>
-          </p>
-          <article className='media center'>
-            <span className='icon'>
-              <a href={data.site.siteMetadata.twitter}>
-                <FaTwitter size='fa-2x' color='blue' />
-              </a>
-            </span>
-            &nbsp;
-            <span className='icon'>
-              <a href={data.site.siteMetadata.github}>
-                <FaGithub size='fa-2x' color='black' />
-              </a>
-            </span>
-            &nbsp;
-            <span className='icon'>
-              <a href={data.site.siteMetadata.medium}>
-                <FaMedium size='fa-2x' color='green' />
-              </a>
-            </span>
-            &nbsp;
-          </article>
-          &nbsp;
-          <p className='is-size-5'>
-            You can also back or support this project for me to keep it updated
-            by{' '}
-            <a href='https://www.paypal.me/amanhimself/2'>Buying Me a Coffee</a>
-          </p>
+    }
+  `)
+
+  const icons = {
+    FaCodepen,
+    FaLinkedinIn,
+    FaGithub
+  }
+
+  const PostIcon = (iconName) => {
+    const Icon = icons[iconName]
+    return <Icon />
+  }
+
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div className="columns">
+          <div className="column is-half">
+            <div className="content">
+              <p>
+                Website handcrafted in <a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener noreferrer">GatsbyJS</a>, <a href="https://bulma.io/" target="_blank" rel="noopener noreferrer">Bulma</a>, and <a href="https://www.contentful.com/" target="_blank" rel="noopener noreferrer">Contentful</a>.
+              </p>
+            </div>
+          </div>
+          <div className="column is-half">
+            <div className="level social-icons is-mobile">
+              {
+                data.allContentfulSocial.edges.map((edge) => (
+                  <div className="level-item" key={edge.node.title}>
+                    <a
+                      href={edge.node.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={edge.node.title}
+                    >
+                      { PostIcon(edge.node.icon) }
+                    </a>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
         </div>
-      </footer>
-    )}
-  />
-)
+      </div>
+    </footer>
+  )
+}
+
 
 export default Footer
