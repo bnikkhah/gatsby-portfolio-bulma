@@ -1,5 +1,4 @@
 import React from 'react';
-// import { FaGithub } from 'react-icons/fa';
 
 import Navbar from './navbar'
 
@@ -39,6 +38,7 @@ const Header = () => {
 
 	return (
 		<section className="hero is-dark is-fullheight">
+			<div className="overlay"></div>
 			<div className="hero-head">
 				<Navbar />
 			</div>
