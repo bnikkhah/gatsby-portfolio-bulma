@@ -18,7 +18,9 @@ const Layout = ({ children, search }) => {
 				alert === 'show' &&
 				<div className="notification is-primary is-marginless is-radiusless" style={{ display: alertClose ? 'none' : 'block' }}>
 				<button className="delete" onClick={() => setAlertClose(true)}></button>
-					<h3 className="is-size-5 has-text-centered">Thanks for your email! I'll contact you soon! 😁</h3>
+					<h3 className="is-size-5 has-text-centered">Thanks for your email! I'll contact you soon! <span role="img" aria-label="Grinning Face With Smiling Eyes
+
+">😁</span></h3>
 				</div>
 			}
 			<Header />

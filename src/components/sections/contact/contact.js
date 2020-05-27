@@ -25,7 +25,7 @@ const Contact = () => {
                                     <div className="container">
                                         <div className="columns">
                                             <div className="column is-full">
-                                                <form method="post" action={`https://www.flexyform.com/f/${process.env.FLEXY_FORM_ID}`}>
+                                                <form method="post" action={`https://www.flexyform.com/f/${process.env.GATSBY_FLEXY_FORM_ID}`}>
                                                     <input type="hidden" name="bot-field" />
                                                     <div className="field">
                                                         <label className="label" htmlFor="name">Name</label>
