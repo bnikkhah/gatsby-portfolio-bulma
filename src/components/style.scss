@@ -320,9 +320,19 @@ h2 {
 #navbar {
     position: fixed;
     z-index: 30;
-    right: 3rem;
-    top: 20%;
+    right: 0;
+    top: 0;
     display: none;
+    height: 100%;
+    padding: 1.5rem;
+    background-color: transparent;
+    transition: transform .6s ease, background-color .3s ease;
+
+    &:hover,
+    &:focus {
+        transform: translateX(0) !important;
+        background-color: rgba($white,.6);
+    }
 
     @include tablet {
         display: block;
